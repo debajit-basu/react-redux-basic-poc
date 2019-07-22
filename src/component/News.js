@@ -1,59 +1,60 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
+import moment from 'moment';
 import { Card, Row, Col, CardText, CardBody,
-    CardTitle, CardSubtitle, Button } from 'reactstrap';
+    CardTitle, CardSubtitle } from 'reactstrap';
 
 
 import fetch_news from '../store/action/newsAction';
 
 class News extends Component {
-    constructor(props) {
-        super(props);
+
+    componentDidMount() {
+        this.props.fetchNews();
     }
+    /*componentWillUnmount() {
+        console.log("unmount fire");
+    }*/
 
     render() {
-        console.log(this.news);
         return (
-            <div>
-
-                <button onClick={this.props.fetchNews}>Fetch user</button>
-
+            <div className="jumbotron">
                 <Row>
                 {
                     this.props.news.map((val, i) => (
 
 
-                            <Col>
+                            <Col key={i} sm={4}>
                                 <div>
-                                    <Card>
+                                    <Card className="mt-4">
                                         <CardBody>
-                                            <CardTitle>{val.id}</CardTitle>
-                                            <CardSubtitle>{val.email}</CardSubtitle>
-                                            <CardText>{`${val.first_name} ${val.last_name}`}</CardText>
-                                                <Row>
-                                                    <Col sm={9}>
-                                                        <img src={ require("../static/dislike.png")} style={{width: '20px' , height: '20px' , float: 'right'}} alt="Dislike"/>
-                                                        <span style={{float: 'right'}}>5</span>
-                                                    </Col>
-                                                    <Col sm={3}>
-                                                        <img src={ require("../static/thumbs-up.png")} style={{width: '20px' ,  height: '20px', float: 'left'}} alt="Dislike"/>
-                                                        <span style={{float: 'left'}}>3</span>
-                                                    </Col>
-                                                </Row>
+                                            <CardTitle>{moment(val.date).format('LL')}</CardTitle>
+                                            <CardSubtitle style={{color:  'green'}} >{val.description}</CardSubtitle>
+                                            <CardText style={{color:  'red',float: 'left'}}>{`Category : ${val.category}`}</CardText>
+                                               <div className="d-flex flex-row justify-content-end align-items-stretch flex-fill mt-5">
+                                                   <img src={ require("../static/dislike.png")}
+                                                        style={{width: '20px' , height: '20px' , float: 'right'}}
+                                                        alt="Dislike" className={`${(val.dislike)?'fill-dislike':''}`}
+                                                        onClick={() => this.props.disLikeNews(val.id)}/>
+                                                   <span style={{float: 'right'}}>{val.totalDislike}</span>
+
+                                                   <img src={ require("../static/thumbs-up.png")} style={{width: '20px' ,  height: '20px', float: 'left' , cursor: 'pointer '}}
+                                                        alt="Dislike" className={`${(val.like)?'fill-like':''}`}
+                                                       onClick={() => this.props.likeNews(val.id)}/>
+                                                   <span style={{float: 'left'}}>{val.totalLike}</span>
+                                               </div>
 
 
 
                                         </CardBody>
                                     </Card>
+
                                 </div>
                             </Col>
 
                     ))
                 }
                 </Row>
-
-
-
 
             </div>
         )
@@ -63,13 +64,15 @@ class News extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        news: state.news.list,
+        news: state.news
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
 
         fetchNews: () => { dispatch(fetch_news) },
+        likeNews: (id) => {dispatch({type: 'HIT_LIKE' , id: id})},
+        disLikeNews: (id) => {dispatch({type: 'HIT_DISLIKE' , id: id})}
     }
 }
 

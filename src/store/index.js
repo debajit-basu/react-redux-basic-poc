@@ -4,10 +4,18 @@ import newsReducer from './reducers/newsReducer';
 
 import thunk from 'redux-thunk';
 
-
 const AllReducers = combineReducers({news: newsReducer})
 
 const InitialState = {
+    news: [],
+    login: {
+        email: null,
+        password: null,
+        isLogin: false
+    }
+}
+
+/*const InitialState = {
     login: {
         email: null,
         password: null,
@@ -21,11 +29,7 @@ const InitialState = {
         age: null,
         sex: null
     },
-    news: {
-        list: [],
-        like: null,
-        disLike: null
-    },
+    news: [],
     items: {
         name: null,
         description: null,
@@ -34,7 +38,7 @@ const InitialState = {
     filter: {
         byDate: null
     }
-}
+}*/
 
 /*{
         description: null,
@@ -47,7 +51,7 @@ const InitialState = {
 const middleWare = [thunk];
 
 
-const store = createStore(AllReducers , InitialState, compose(applyMiddleware(...middleWare) , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+const store = createStore(AllReducers ,InitialState , compose(applyMiddleware(...middleWare) , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
 
 // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css';
+
+import { Link } from 'react-router-dom';
 // import { Row, ListGroup, ListGroupItem} from 'reactstrap';
 // import {toast,ToastContainer} from "react-toastify";
 // import 'react-toastify/dist/ReactToastify.min.css';
@@ -11,11 +13,6 @@ class Header extends React.Component {
         this.state = {
 
         }
-
-    }
-
-    componentDidMount() {
-
 
     }
 
@@ -30,17 +27,17 @@ class Header extends React.Component {
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                             <li className="nav-item ml-5">
-                                <a className="nav-link">News</a> {/*href="#"*/}
+                                <Link to="/news">News</Link>
                             </li>
                             <li className="nav-item ml-4">
-                                <a className="nav-link">Items</a>
+                                <Link to="/items">Items</Link>
                             </li>
                             <li className="nav-item ml-4">
-                                <a className="nav-link">Login</a>
+                                <Link to="/login">Login</Link>
                             </li>
                             <li className="nav-item ml-4">
-                                <a className="nav-link">Register</a>
                             </li>
+                            <Link to="/register">Register</Link>
                         </ul>
                         <form className="form-inline my-2 my-lg-0">
                             <input className="form-control mr-sm-2" type="text" placeholder="Search" />

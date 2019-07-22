@@ -3,32 +3,32 @@ import './App.css';
 import Layout from './component/Layout';
 import Header from './component/Header';
 import News from './component/News';
+import Items from './component/Items';
+import Login from './component/Login';
+
+import { BrowserRouter,Route } from 'react-router-dom';
 
 
 import {connect} from 'react-redux';
 
 class App extends Component {
-  constructor(props){
-      super(props);
-  }
-
 
   render() {
       return (
-          <div className="App" style={{background: 'white'}}>
-              <Layout title="Layout">
 
-                  <Header />
-                  <div className="mt-3 container p-2">
-
-                          <News />
-
-
-
-
+          <BrowserRouter>
+              <Layout>
+                  <div className="App">
+                      <Header />
+                      <div className="container mt-5 p-3">
+                          <Route exact path='/news' component={News} />
+                          <Route path='/items' component={Items} />
+                          <Route path='/login' component={Login} />
+                      </div>
                   </div>
               </Layout>
-          </div>
+
+          </BrowserRouter>
       );
   }
 }

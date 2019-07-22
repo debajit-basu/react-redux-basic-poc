@@ -2,9 +2,9 @@ export const FETCH_NEWS = 'FETCH_NEWS';
 
 const fetch_news = (dispatch) => {
     //fetch call here
-    fetch("https://reqres.in/api/users?page=2")
+    fetch("http://www.mocky.io/v2/5d358c7156000056003a4e3b")
         .then(res => res.json())
-        .then(res => dispatch({type: FETCH_NEWS , list: res.data}))
+        .then(res => dispatch({type: FETCH_NEWS , news: res}))
 }
 
 // const fetch_user = {type: FETCH_USER , payload: 'New user registered'}
