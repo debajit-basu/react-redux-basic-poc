@@ -5,6 +5,7 @@ import Header from './component/Header';
 import News from './component/News';
 import Items from './component/Items';
 import Login from './component/Login';
+import Register from './component/Register';
 
 import { BrowserRouter,Route } from 'react-router-dom';
 
@@ -24,6 +25,7 @@ class App extends Component {
                           <Route exact path='/news' component={News} />
                           <Route path='/items' component={Items} />
                           <Route path='/login' component={Login} />
+                          <Route path='/register' component={Register} />
                       </div>
                   </div>
               </Layout>

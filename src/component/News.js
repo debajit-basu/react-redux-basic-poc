@@ -19,6 +19,7 @@ class News extends Component {
     render() {
         return (
             <div className="jumbotron">
+                <div className="font-3x bg-light rounded box-shadow font-weight-light primary-color-text"> All News</div>
                 <Row>
                 {
                     this.props.news.map((val, i) => (

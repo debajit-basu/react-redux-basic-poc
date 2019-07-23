@@ -40,14 +40,10 @@ class Login extends Component {
                                 <div className="col-12 blue-text">
                                     <span className="d-flex justify-content-center">Login</span>
                                 </div>
-                                {/*<div className="col-6">
-                                    <span className=" float-right font-2x green-text pointer font-weight-lighter">Reset Filter</span>
-                                </div>*/}
                             </div>
 
 
                             <div className="row padding-0-7x heading-panel">
-                                {/*<Label>Max Amount</Label>*/}
                                 <InputGroup>
                                     <InputGroupAddon addonType="prepend">Email:</InputGroupAddon>
                                     <Input
@@ -57,10 +53,8 @@ class Login extends Component {
                                 </InputGroup>
                             </div>
 
-                            {/*Min Amount Input*/}
 
                             <div className="row padding-0-7x heading-panel">
-                                {/*<Label>Min Amount</Label>*/}
                                 <InputGroup>
                                     <InputGroup>
                                         <InputGroupAddon addonType="prepend">Password:</InputGroupAddon>
@@ -76,8 +70,7 @@ class Login extends Component {
 
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.toggle}>Login</Button>
-                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                            <Button color="primary">Login</Button>
                         </ModalFooter>
                     </Modal>
                 </div>
