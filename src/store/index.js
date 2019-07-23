@@ -1,17 +1,28 @@
 import { createStore,combineReducers,applyMiddleware,compose } from "redux";
 // import loginReducer from './reducers/loginReducer';
 import newsReducer from './reducers/newsReducer';
+import globalReducer from './reducers/globalReducer';
+import loginReducer from './reducers/loginReducer';
 
 import thunk from 'redux-thunk';
 
-const AllReducers = combineReducers({news: newsReducer})
+const AllReducers = combineReducers({
+    news: newsReducer ,
+    globalVariable: globalReducer,
+    login: loginReducer
+})
 
 const InitialState = {
     news: [],
     login: {
-        email: null,
-        password: null,
-        isLogin: false
+        email: "demo@collegify.com",
+        password: "admin",
+        isLogin: false,
+        loginStatus: false
+    },
+    globalVariable: {
+        loginModal: false,
+        registerModal: false
     }
 }
 

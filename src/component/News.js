@@ -12,11 +12,10 @@ class News extends Component {
     componentDidMount() {
         this.props.fetchNews();
     }
-    /*componentWillUnmount() {
-        console.log("unmount fire");
-    }*/
+
 
     render() {
+        console.log(this.props.login);
         return (
             <div className="jumbotron">
                 <div className="font-3x bg-light rounded box-shadow font-weight-light primary-color-text"> All News</div>
@@ -65,7 +64,8 @@ class News extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        news: state.news
+        news: state.news,
+        login: state.login
     }
 }
 const mapDispatchToProps = (dispatch) => {

@@ -12,28 +12,33 @@ class Login extends Component {
         this.RegisterModalToggle = this.RegisterModalToggle.bind(this);
     }
 
-    RegisterModalToggle() {
+    RegisterModalToggle(key) {
+        if(key === 'close'){
+            this.props.registerClick();
+        }
+
         this.setState(prevState => ({
             RegisterModal: !prevState.RegisterModal
         }));
     }
 
-    componentWillUnmount() {
+    componentDidMount() {
         this.RegisterModalToggle();
     }
+
 
     render() {
         // console.log(this.props.newsItem);
         return (
             <>
-                <div>
+                {/*<div>
                     <h1 style={{cursor: 'pointer' , color: 'red'}} onClick={() => this.RegisterModalToggle()}>Register Now</h1>
-                </div>
+                </div>*/}
 
 
                 <div>
                     <Modal isOpen={this.state.RegisterModal} toggle={this.RegisterModalToggle}>
-                        <ModalHeader RegisterModalToggle={this.RegisterModalToggle}></ModalHeader>
+                        <ModalHeader toggle={this.RegisterModalToggle.bind(this,'close')}></ModalHeader>
                         <ModalBody>
 
                             <div className="row padding-0-7x font-2x font-weight-light heading-panel" style={{background:'#E6ECF3'}}>
@@ -132,7 +137,8 @@ class Login extends Component {
                             <hr/>
                             <Row>
                                 <Col className="font-weight-light font-1-4x primary-color-text" sm="12" md={{ size: 8, offset: 5 }}>
-                                    **Already Have an account?<span className="font-weight-bold pointer">Login now</span></Col>
+                                    **Already Have an account?<span className="font-weight-bold pointer"
+                                onClick={this.props.alreadyHaveAccount}>Login now</span></Col>
                             </Row>
 
 
@@ -158,5 +164,12 @@ const mapStateToProps = (state) => {
         newsItem: state.news
     }
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
 
-export default connect(mapStateToProps)(Login);
+        registerClick: () => {dispatch({type: 'TOGGLE_REGISTER_MODAL'})},
+        alreadyHaveAccount: () => {dispatch({type: 'HAVE_ACCOUNT'})}
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

@@ -1,39 +1,85 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, InputGroup ,InputGroupAddon,Input} from 'reactstrap';
+import {
+    Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Label,
+    InputGroup,
+    InputGroupAddon,
+    Input,
+    Col, Row
+} from 'reactstrap';
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            LoginModal: false
+            LoginModal: false,
+            email: '',
+            password: ''
         };
 
         this.toggle = this.toggle.bind(this);
     }
 
-    toggle() {
+    toggle(key) {
+        if(key === 'close'){
+            this.props.loginClick();
+        }
+
         this.setState(prevState => ({
             LoginModal: !prevState.LoginModal
         }));
+
     }
 
-    componentWillUnmount() {
+    componentDidMount() {
         this.toggle();
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log(this.props.loginState);
+        if(this.props.loginState.loginStatus){
+            this.toggle('close');
+            this.setState({
+                email: '',
+                password: ''
+            })
+        }else{
+            console.log("something is wrong with login");
+        }
+    }
+
+    getFormData = (e) => {
+                const state = this.state;
+                state[e.target.name] = e.target.value;
+                this.setState(state);
+    }
+
+    login = () => {
+        console.log(this.state);
+        const formdata = {
+            email: this.state.email,
+            password: this.state.password
+        }
+        this.props.login(formdata);
+
     }
 
     render() {
-        // console.log(this.props.newsItem);
+
         return (
             <>
-                <div>
+                {/*<div>
                     <h1 style={{cursor: 'pointer' , color: 'red'}} onClick={() => this.toggle()}>Login Here</h1>
-                </div>
+                </div>*/}
 
 
                 <div>
-                    <Modal isOpen={this.state.LoginModal} toggle={this.toggle}>
-                        <ModalHeader toggle={this.toggle}></ModalHeader>
+                    <Modal backdrop='static' keyboard={false} isOpen={this.state.LoginModal} toggle={this.toggle}>
+                        <ModalHeader toggle={this.toggle.bind(this,'close')}></ModalHeader>
                         <ModalBody>
 
                             <div className="row padding-0-7x font-2x font-weight-light heading-panel" style={{background:'#E6ECF3'}}>
@@ -49,6 +95,8 @@ class Login extends Component {
                                     <Input
                                         type="text"
                                         name="email"
+                                        value={this.state.email}
+                                        onChange={this.getFormData.bind(this)}
                                     />
                                 </InputGroup>
                             </div>
@@ -61,16 +109,25 @@ class Login extends Component {
                                         <Input
                                             type="password"
                                             name="password"
+                                            value={this.state.password}
+                                            onChange={this.getFormData.bind(this)}
                                         />
                                     </InputGroup>
                                 </InputGroup>
                             </div>
 
+                            <hr/>
+                            <Row>
+                                <Col className="font-weight-light font-1-4x primary-color-text" sm="12" md={{ size: 8, offset: 5 }}>
+                                    **Don't Have an account?<span className="font-weight-bold pointer"
+                                                                    onClick={this.props.DontHaveAccount}>Register now</span></Col>
+                            </Row>
+
 
 
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary">Login</Button>
+                            <Button color="primary" onClick={this.login}>Login</Button>
                         </ModalFooter>
                     </Modal>
                 </div>
@@ -86,8 +143,18 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        newsItem: state.news
+        globalVariableProp: state.globalVariable,
+        loginState: state.login
     }
 }
 
-export default connect(mapStateToProps)(Login);
+const mapDispatchToProps = (dispatch) => {
+    return {
+
+        loginClick: () => {dispatch({type: 'TOGGLE_LOGIN_MODAL'})},
+        DontHaveAccount: () => {dispatch({type: 'DONT_HAVE_ACCOUNT'})},
+        login: (obj) => {dispatch({type: 'LOGIN' , formData: obj})}
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

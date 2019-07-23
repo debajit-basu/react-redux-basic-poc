@@ -1,11 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css';
+import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
-// import { Row, ListGroup, ListGroupItem} from 'reactstrap';
-// import {toast,ToastContainer} from "react-toastify";
-// import 'react-toastify/dist/ReactToastify.min.css';
 
 class Header extends React.Component {
     constructor(props){
@@ -18,6 +16,7 @@ class Header extends React.Component {
 
 
     render() {
+        console.log(this.props.globalVariableProp);
         return (
             <div style={{backgroundColor: '#e8bec6'}}>
                 <nav className="navbar navbar-expand-lg navbar-light">
@@ -33,11 +32,22 @@ class Header extends React.Component {
                                 <Link to="/items">Items</Link>
                             </li>
                             <li className="nav-item ml-4">
-                                <Link to="/login">Login</Link>
+                                {
+                                    (!this.props.globalVariableProp.loginModal) &&
+                                        (!this.props.loginState.loginStatus)?
+                                      <button className="btn btn-light" onClick={this.props.loginClick} > Login</button>
+                                        :
+                                      <button className="btn btn-light" onClick={this.props.logoutClick} > Logout</button>
+                                }
+
                             </li>
                             <li className="nav-item ml-4">
                             </li>
-                            <Link to="/register">Register</Link>
+                            {/*<Link to="/register">Register</Link>*/}
+                            {
+                                (!this.props.globalVariableProp.registerModal) &&
+                                <button className="btn btn-light" onClick={this.props.registerClick} > Register</button>
+                            }
                         </ul>
                         <form className="form-inline my-2 my-lg-0">
                             <input className="form-control mr-sm-2" type="text" placeholder="Search" />
@@ -49,4 +59,23 @@ class Header extends React.Component {
         );
     }
 }
-export default Header;
+
+const mapStateToProps = (state) => {
+    return {
+        globalVariableProp: state.globalVariable,
+        loginState: state.login
+
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+
+        loginClick: () => {dispatch({type: 'TOGGLE_LOGIN_MODAL'})},
+        registerClick: () => {dispatch({type: 'TOGGLE_REGISTER_MODAL'})},
+        logoutClick: () => {dispatch({type: 'LOGOUT'})}
+    }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Header);
