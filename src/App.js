@@ -7,7 +7,7 @@ import Items from './component/Items';
 import Login from './component/Login';
 import Register from './component/Register';
 
-import { BrowserRouter,Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 
 import {connect} from 'react-redux';
@@ -19,7 +19,7 @@ class App extends Component {
       return (
 
           <BrowserRouter>
-              <Layout>
+              <Layout >
                   <div className="App">
                       <Header />
                       <div className="container mt-5 p-3">

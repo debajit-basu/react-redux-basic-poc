@@ -31,28 +31,36 @@ class Header extends React.Component {
                             <li className="nav-item ml-4">
                                 <Link to="/items">Items</Link>
                             </li>
-                            <li className="nav-item ml-4">
-                                {
-                                    (!this.props.globalVariableProp.loginModal) &&
-                                        (!this.props.loginState.loginStatus)?
-                                      <button className="btn btn-light" onClick={this.props.loginClick} > Login</button>
-                                        :
-                                      <button className="btn btn-light" onClick={this.props.logoutClick} > Logout</button>
-                                }
-
-                            </li>
+                            {/*//////////////////////////////*/}
                             <li className="nav-item ml-4">
                             </li>
                             {/*<Link to="/register">Register</Link>*/}
-                            {
-                                (!this.props.globalVariableProp.registerModal) &&
-                                <button className="btn btn-light" onClick={this.props.registerClick} > Register</button>
-                            }
+
                         </ul>
-                        <form className="form-inline my-2 my-lg-0">
-                            <input className="form-control mr-sm-2" type="text" placeholder="Search" />
-                                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>
+                        <div className="form-inline my-2 my-lg-0">
+                            <div className="nav-item d-flex justify-content-end">
+                                {
+                                    (!this.props.globalVariableProp.loginModal) &&
+                                    (!this.props.loginState.loginStatus)?
+                                        <button className="btn btn-light" onClick={this.props.loginClick} > Login</button>
+                                        :
+                                        <button className="btn btn-light" onClick={this.props.logoutClick} > Logout</button>
+                                }
+                                <div className="ml-3 mr-5">
+                                    {
+                                        (!this.props.globalVariableProp.registerModal) &&
+                                        (!this.props.loginState.loginStatus)?
+                                            <button className="btn btn-light" onClick={this.props.registerClick} > Register</button>
+                                            :
+                                            <span className="font-weight-lighter font-2x logo-font">
+                                                {(this.props.loginState.loginStatus)? "Welcome , " + this.props.loginState.email: ''}</span>
+                                    }
+                                </div>
+
+
+
+                            </div>
+                        </div>
                     </div>
                 </nav>
             </div>

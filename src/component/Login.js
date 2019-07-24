@@ -25,6 +25,7 @@ class Login extends Component {
         this.toggle = this.toggle.bind(this);
     }
 
+
     toggle(key) {
         if(key === 'close'){
             this.props.loginClick();

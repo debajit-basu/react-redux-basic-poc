@@ -13,6 +13,24 @@ class News extends Component {
         this.props.fetchNews();
     }
 
+    checkLikeNews = (id) => {
+
+        if(this.props.login.isLogin){
+            this.props.likeNews(id);
+        }else{
+            this.props.loginClick();
+        }
+    }
+
+    checkDisLikeNews = (id) => {
+
+        if(this.props.login.isLogin){
+            this.props.disLikeNews(id)
+        }else{
+            this.props.loginClick();
+        }
+    }
+
 
     render() {
         console.log(this.props.login);
@@ -35,12 +53,12 @@ class News extends Component {
                                                    <img src={ require("../static/dislike.png")}
                                                         style={{width: '20px' , height: '20px' , float: 'right'}}
                                                         alt="Dislike" className={`${(val.dislike)?'fill-dislike':''}`}
-                                                        onClick={() => this.props.disLikeNews(val.id)}/>
+                                                        onClick={() => this.checkDisLikeNews(val.id)}/>
                                                    <span style={{float: 'right'}}>{val.totalDislike}</span>
 
                                                    <img src={ require("../static/thumbs-up.png")} style={{width: '20px' ,  height: '20px', float: 'left' , cursor: 'pointer '}}
                                                         alt="Dislike" className={`${(val.like)?'fill-like':''}`}
-                                                       onClick={() => this.props.likeNews(val.id)}/>
+                                                       onClick={() => this.checkLikeNews(val.id)}/>
                                                    <span style={{float: 'left'}}>{val.totalLike}</span>
                                                </div>
 
@@ -73,7 +91,8 @@ const mapDispatchToProps = (dispatch) => {
 
         fetchNews: () => { dispatch(fetch_news) },
         likeNews: (id) => {dispatch({type: 'HIT_LIKE' , id: id})},
-        disLikeNews: (id) => {dispatch({type: 'HIT_DISLIKE' , id: id})}
+        disLikeNews: (id) => {dispatch({type: 'HIT_DISLIKE' , id: id})},
+        loginClick: () => {dispatch({type: 'TOGGLE_LOGIN_MODAL'})}
     }
 }
 
